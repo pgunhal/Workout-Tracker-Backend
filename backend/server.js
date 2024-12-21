@@ -1,10 +1,13 @@
 const dotenv = require('dotenv')
 const path = require('path');
+const cors = require('cors');
 
 const express = require('express')
 const mongoose = require('mongoose')
+
 //get the exported workout routes
 const workoutRoutes = require('./routes/workouts')
+
 
 dotenv.config({ path: path.resolve(__dirname, './.env') });
 
@@ -13,6 +16,8 @@ const app = express() //creates express app by invoking function
 //global middleware
 app.use(express.json()) 
 //reads the json of the app to be accessed in the request handler
+
+app.use(cors());
 
 //gets the path of the request and its method and logs then
 //calls next() function to do the next thing!
