@@ -2,11 +2,15 @@ const dotenv = require('dotenv')
 const path = require('path');
 const cors = require('cors');
 
+const cookieParser = require("cookie-parser");
+
 const express = require('express')
 const mongoose = require('mongoose')
 
-//get the exported workout routes
+//get the exported routes
 const workoutRoutes = require('./routes/workouts')
+const authRoute = require('./routes/authRoute')
+// console.log('authRoute:', authRoute); // This should log the router object
 
 
 dotenv.config({ path: path.resolve(__dirname, './.env') });
@@ -16,6 +20,8 @@ const app = express() //creates express app by invoking function
 //global middleware
 app.use(express.json()) 
 //reads the json of the app to be accessed in the request handler
+
+app.use(cookieParser());
 
 app.use(cors());
 
@@ -33,6 +39,7 @@ app.use((req, res, next) => {
 //bc ./ is used for workoutRoutes, it is all local
 app.use('/api/workouts', workoutRoutes)
 
+app.use("/", authRoute);
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
