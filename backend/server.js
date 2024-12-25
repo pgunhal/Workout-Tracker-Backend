@@ -21,9 +21,6 @@ const app = express() //creates express app by invoking function
 app.use(express.json()) 
 //reads the json of the app to be accessed in the request handler
 
-app.use(cookieParser());
-
-
 app.use(
     cors({
       origin: ["http://localhost:3000", "https://mern-health-tracker.netlify.app"],
@@ -31,6 +28,9 @@ app.use(
       credentials: true,
     })
   );
+
+app.use(cookieParser());
+
 //gets the path of the request and its method and logs then
 //calls next() function to do the next thing!
 app.use((req, res, next) => {
