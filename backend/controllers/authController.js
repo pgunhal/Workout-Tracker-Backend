@@ -56,6 +56,14 @@ module.exports.Login = async (req, res, next) => {
             return res.status(500).json({ message: "Failed to create token" });
         }
 
+        console.log("LOGIN deleting old token")
+        res.clearCookie("token", {
+            path: "/",       // Match path used during set
+            httpOnly: true,   // Match httpOnly used during set
+          });
+
+          console.log("CLEARED")
+
         console.log("LOGIN creating token")
         res.cookie("token", token, {
             withCredentials: true,
