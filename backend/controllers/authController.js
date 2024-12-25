@@ -14,17 +14,12 @@ module.exports.Signup = async(req, res, next) => {
         const user = await User.create({ email, password, username})
         const token = createSecretToken(user._id);
 
-        if (!token) {
-            console.error("SIGNUP Token creation failed!");
-            return res.status(500).json({ message: "Failed to create token" });
-        }
 
-        console.log("SIGNUP creating token")
         res.cookie("token", token, {
             httpOnly: true,        // Secure: prevent access via JavaScript
             // sameSite: "none",      // Allow cross-origin requests
             // secure: false,          // Use true in production with HTTPS
-            path: "/",             // Must match the path for clearing
+            // path: "/",             // Must match the path for clearing
           });
         res.status(201).json({message: 'Sign in successful', success: true, user})
         next()
@@ -53,26 +48,11 @@ module.exports.Login = async (req, res, next) => {
 
         const token = createSecretToken(user._id)
 
-        if (!token) {
-            console.error("LOGIN Token creation failed!");
-            return res.status(500).json({ message: "Failed to create token" });
-        }
-
-        console.log("LOGIN deleting old token")
-        console.log("Cookies before clearing:", req.cookies);
-        res.clearCookie("token", {
-            path: "/",       // Match path used during set
-            httpOnly: true,   // Match httpOnly used during set
-          });
-
-          console.log("CLEARED")
-
-        console.log("LOGIN creating token")
         res.cookie("token", token, {
             httpOnly: true,        // Secure: prevent access via JavaScript
             // sameSite: "none",      // Allow cross-origin requests
             // secure: false,          // Use true in production with HTTPS
-            path: "/",             // Must match the path for clearing
+            // path: "/",             // Must match the path for clearing
           });
         
 
