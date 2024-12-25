@@ -22,8 +22,8 @@ module.exports.Signup = async(req, res, next) => {
         console.log("SIGNUP creating token")
         res.cookie("token", token, {
             httpOnly: true,        // Secure: prevent access via JavaScript
-            sameSite: "none",      // Allow cross-origin requests
-            secure: false,          // Use true in production with HTTPS
+            // sameSite: "none",      // Allow cross-origin requests
+            // secure: false,          // Use true in production with HTTPS
             path: "/",             // Must match the path for clearing
           });
         res.status(201).json({message: 'Sign in successful', success: true, user})
@@ -70,8 +70,8 @@ module.exports.Login = async (req, res, next) => {
         console.log("LOGIN creating token")
         res.cookie("token", token, {
             httpOnly: true,        // Secure: prevent access via JavaScript
-            sameSite: "none",      // Allow cross-origin requests
-            secure: false,          // Use true in production with HTTPS
+            // sameSite: "none",      // Allow cross-origin requests
+            // secure: false,          // Use true in production with HTTPS
             path: "/",             // Must match the path for clearing
           });
         
