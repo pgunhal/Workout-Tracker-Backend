@@ -57,6 +57,7 @@ module.exports.Login = async (req, res, next) => {
         }
 
         console.log("LOGIN deleting old token")
+        console.log("Cookies before clearing:", req.cookies);
         res.clearCookie("token", {
             path: "/",       // Match path used during set
             httpOnly: true,   // Match httpOnly used during set
